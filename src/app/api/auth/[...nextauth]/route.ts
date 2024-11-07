@@ -1,45 +1,28 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { JWT } from 'next-auth/jwt';
+import type { Session, DefaultSession } from 'next-auth';
+import type { JWT } from 'next-auth/jwt';
+
+// Extend the built-in session type
+interface ExtendedSession extends DefaultSession {
+  user?: {
+    id?: string;
+  } & DefaultSession['user'];
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
     }),
   ],
-  pages: {
-    signIn: '/',
-    error: '/',
-  },
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
+    async session({ session, token }: { session: ExtendedSession; token: JWT }) {
+      if (session?.user) {
+        session.user.id = token.sub ?? '';
       }
-      return token;
-    },
-    async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          role: token.role,
-        },
-      };
-    },
-  },
-  events: {
-    async signIn({ user }) {
-      // Create or update user in your database
-      console.log('User signed in:', user);
-    },
-    async signOut({ session }) {
-      // Clean up any session-specific data
-      console.log('User signed out:', session);
+      return session;
     },
   },
 };
