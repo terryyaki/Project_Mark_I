@@ -8,6 +8,7 @@ import { SpacesProvider, useSpaces } from '@/components/spaces/SpacesSwitcher';
 import { useWidgetStore } from '@/store/widgetStore';
 import { WidgetProvider } from '@/contexts/WidgetContext';
 import { AnimatePresence, motion } from 'framer-motion';
+import ProtectedRoute from '@/components/auth/ProtectedRoute';
 
 // Separate the content component
 function SpacesContent() {
@@ -44,10 +45,12 @@ function SpacesContent() {
 // Main component
 export default function SpacesOS() {
   return (
-    <WidgetProvider>
-      <SpacesProvider>
-        <SpacesContent />
-      </SpacesProvider>
-    </WidgetProvider>
+    <ProtectedRoute>
+      <WidgetProvider>
+        <SpacesProvider>
+          <SpacesContent />
+        </SpacesProvider>
+      </WidgetProvider>
+    </ProtectedRoute>
   );
 }
