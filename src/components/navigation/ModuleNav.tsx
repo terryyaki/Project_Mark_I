@@ -12,7 +12,7 @@ export default function ModuleNav() {
   ];
 
   return (
-    <div className="flex gap-4">
+    <nav>
       {links.map((link) => (
         <Link 
           key={link.href}
@@ -26,6 +26,26 @@ export default function ModuleNav() {
           {link.label}
         </Link>
       ))}
-    </div>
+      <Link 
+        href="/profile" 
+        className="flex items-center p-2 hover:bg-white/10 rounded-lg"
+      >
+        <svg 
+          className="w-5 h-5 mr-2"
+          xmlns="http://www.w3.org/2000/svg" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+          />
+        </svg>
+        Profile
+      </Link>
+    </nav>
   );
 }

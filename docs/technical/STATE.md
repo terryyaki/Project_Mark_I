@@ -8,8 +8,37 @@ graph LR
     A[NextAuth] --> B[Session]
     B --> C[Protected Routes]
     B --> D[Widget Store]
+    B --> E[User Preferences]
     
     style B fill:#f9f,stroke:#333
+    style E fill:#ff9,stroke:#333
+```
+
+## Session Management
+```typescript
+interface ExtendedSession {
+  user?: {
+    id?: string;
+    preferences?: {
+      theme: string;
+      defaultSpace: string;
+    }
+  } & DefaultSession['user']
+}
+```
+
+## Latest Updates
++ - Added authentication state management
++ - Prepared for user preferences
++ - Integrated session with widget store
+
+```mermaid
+graph LR
+    A[Widget Store] --> B[Notes Widget]
+    A --> C[Dock]
+    D[Space Switcher] --> A
+    
+    style A fill:#ff9,stroke:#333
 ```
 
 ## Widget Store
@@ -35,8 +64,3 @@ graph LR
     
     style A fill:#ff9,stroke:#333
 ```
-
-## Latest Updates
-- Added space-specific filtering
-- Implemented position persistence
-- Added color management 

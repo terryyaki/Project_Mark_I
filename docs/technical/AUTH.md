@@ -1,33 +1,38 @@
 # Authentication System
 
 ## Latest Implementation
-```typescript:src/app/api/auth/[...nextauth]/route.ts
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import type { Session } from 'next-auth';
-import type { JWT } from 'next-auth/jwt';
 
-export const authOptions: NextAuthOptions = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-  ],
-  callbacks: {
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub;
-      }
-      return session;
-    },
-  },
-};
+### Type System
+```typescript
+// Types for user preferences and session
+interface UserPreferences {
+  theme: 'light' | 'dark' | 'system';
+  defaultSpace: string;
+  widgetPreferences: {
+    noteColor: string;
+    fontSize: number;
+  };
+}
+
+// Extended NextAuth types
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+      preferences: UserPreferences;
+    } & DefaultSession['user']
+  }
+}
 ```
 
-- Updated redirect URIs:
-  * Development: `http://localhost:3000/api/auth/callback/google`
-  * Production: `https://inquisitive-bonbon-08be2e.netlify.app/api/auth/callback/google`
+### File Structure
+```
+src/
+├── lib/
+│   └── auth.ts              # Auth configuration and types
+├── types/
+│   └── next-auth.d.ts       # Type declarations for NextAuth
+```
 
 ## Auth Flow
 ```mermaid
