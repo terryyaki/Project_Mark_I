@@ -158,3 +158,20 @@ Current documentation coverage:
    - AUTH.md ✓ (Updated [current_date]: Added Google OAuth setup)
 4. Styles
    - ANIMATIONS.md ✓
+
+## File Structure
+```
+src/
+├── app/
+│   └── api/
+│       └── auth/
+│           └── [...nextauth]/
+│               └── route.ts    # Auth route handler
++ ├── lib/
++ │   └── auth.ts              # Auth configuration and types
+```
+
+## Implementation Details
+The auth system is now split into:
+1. Route handler (`route.ts`) - Handles auth endpoints
+2. Configuration (`auth.ts`) - Contains auth setup and types

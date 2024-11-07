@@ -3,7 +3,7 @@ import { Providers } from './providers';
 import LoginButton from '@/components/auth/LoginButton';
 import ModuleNav from '@/components/navigation/ModuleNav';
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
+import { authConfig as authOptions } from '@/lib/auth';
 
 export const metadata = {
   title: 'Super App',

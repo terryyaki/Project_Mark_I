@@ -5,6 +5,8 @@
 + - Implemented protected routes and middleware
 + - Created type-safe session management
 + - Added auth-aware layout system
++ - New auth configuration in src/lib/auth.ts
++ - Separated auth types and config for better organization
 + 
 + ### Technical Details
 + - File Structure:
@@ -15,6 +17,8 @@
 +   │   │   └── auth/
 +   │   │       └── [...nextauth]/
 +   │   │           └── route.ts
++   │   ├── lib/
++   │   │   └── auth.ts
 +   │   └── providers.tsx
 +   ├── components/
 +   │   └── auth/
@@ -30,6 +34,8 @@
 +   * Route protection middleware
 +   * Type-safe sessions
 +   * Auth-aware layouts
++   * New auth configuration
++   * Separated auth types and config
 
 ## Collaborative OS Module Implementation
 ...
