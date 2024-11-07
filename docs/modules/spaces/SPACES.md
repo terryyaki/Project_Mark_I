@@ -15,12 +15,15 @@ graph TD
     A[SpacesOS Page] --> B[SpacesSwitcher]
     A --> C[NotesWidget]
     A --> D[Dock]
+    A --> E[ProtectedRoute]
     
-    B --> E[/Widget Store/]
-    C --> E
+    B --> F[/Widget Store/]
+    C --> F
+    E --> G[/Auth Session/]
     
     style A fill:#f9f,stroke:#333
-    style E fill:#ff9,stroke:#333
+    style F fill:#ff9,stroke:#333
+    style G fill:#f9f,stroke:#333
 ```
 
 ## Latest Updates

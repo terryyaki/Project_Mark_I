@@ -1,5 +1,45 @@
 # Authentication System
 
+## Latest Implementation
+```typescript:src/app/api/auth/[...nextauth]/route.ts
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import type { Session } from 'next-auth';
+import type { JWT } from 'next-auth/jwt';
+
+export const authOptions: NextAuthOptions = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
+};
+```
+
+- Updated redirect URIs:
+  * Development: `http://localhost:3000/api/auth/callback/google`
+  * Production: `https://inquisitive-bonbon-08be2e.netlify.app/api/auth/callback/google`
+
+## Auth Flow
+```mermaid
+graph TD
+    A[User] -->|Click Login| B[Google OAuth]
+    B -->|Success| C[Create Session]
+    C -->|Set Cookie| D[Protected Routes]
+    
+    style C fill:#f9f,stroke:#333
+    style D fill:#ff9,stroke:#333
+```
+
 ## Package Installation
 ```bash
 # Install Next-Auth
@@ -74,7 +114,7 @@ export default function RootLayout({
 5. Create OAuth 2.0 credentials
 6. Add authorized redirect URIs:
    - `http://localhost:3000/api/auth/callback/google` (development)
-   - `https://your-netlify-url.netlify.app/api/auth/callback/google` (production)
+   - `https://inquisitive-bonbon-08be2e.netlify.app/api/auth/callback/google` (production)
 
 ### 2. Environment Variables
 Development (.env.local):
@@ -103,3 +143,18 @@ NEXTAUTH_SECRET=your_production_secret
 - Created login button component
 - Added session management
 - Updated deployment configuration
+
+## Active Documentation Files
+Current documentation coverage:
+1. Spaces Module
+   - SPACES.md ✓
+   - WIDGETS.md ✓
+   - INTERACTIONS.md ✓
+2. Home Module
+   - HOME.md ✓
+   - NAVIGATION.md ✓
+3. Technical
+   - STATE.md ✓
+   - AUTH.md ✓ (Updated [current_date]: Added Google OAuth setup)
+4. Styles
+   - ANIMATIONS.md ✓

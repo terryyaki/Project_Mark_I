@@ -1,5 +1,17 @@
 # State Management
 
+## Authentication State
+Managed by NextAuth.js session system
+
+```mermaid
+graph LR
+    A[NextAuth] --> B[Session]
+    B --> C[Protected Routes]
+    B --> D[Widget Store]
+    
+    style B fill:#f9f,stroke:#333
+```
+
 ## Widget Store
 Central store for managing widget state using Zustand.
 
