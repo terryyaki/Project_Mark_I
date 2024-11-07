@@ -3,7 +3,7 @@ import { Providers } from './providers';
 import LoginButton from '@/components/auth/LoginButton';
 import ModuleNav from '@/components/navigation/ModuleNav';
 import { getServerSession } from 'next-auth';
-import { authConfig as authOptions } from '@/lib/auth';
+import { authConfig } from '@/lib/auth';
 
 export const metadata = {
   title: 'Super App',
@@ -15,7 +15,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authConfig);
 
   return (
     <html lang="en">
