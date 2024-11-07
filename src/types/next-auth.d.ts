@@ -1,5 +1,5 @@
-import 'next-auth';
-import { Theme, UserPreferences } from '@/lib/auth';
+import type { DefaultSession } from 'next-auth';
+import type { UserPreferences } from '@/lib/auth';
 
 declare module 'next-auth' {
   interface Session {

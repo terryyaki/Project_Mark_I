@@ -9,13 +9,14 @@ import { useWidgetStore } from '@/store/widgetStore';
 import { WidgetProvider } from '@/contexts/WidgetContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import { type Note } from '@/types/store';
 
 // Separate the content component
 function SpacesContent() {
   const { notes, addNote, deleteNote } = useWidgetStore();
   const { activeSpace, activeBackground } = useSpaces();
 
-  const spaceNotes = notes.filter(note => note.spaceId === activeSpace);
+  const spaceNotes = notes.filter((note: Note) => note.spaceId === activeSpace);
 
   return (
     <motion.div 

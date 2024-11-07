@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '@/store/userStore';
 import { motion } from 'framer-motion';
 
 export default function UserProfile() {

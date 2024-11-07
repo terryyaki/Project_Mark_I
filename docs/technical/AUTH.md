@@ -171,7 +171,7 @@ src/
 │   └── api/
 │       └── auth/
 │           └── [...nextauth]/
-│               └── route.ts    # Auth route handler
+│               ��── route.ts    # Auth route handler
 + ├── lib/
 + │   └── auth.ts              # Auth configuration and types
 ```

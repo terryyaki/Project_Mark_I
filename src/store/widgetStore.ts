@@ -1,52 +1,35 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { nanoid } from 'nanoid';
+import { type Note, type WidgetState } from '@/types/store';
 
-interface Note {
-  id: string;
-  content: string;
-  position: { x: number; y: number };
-  color: string;
-  spaceId: string;
-}
+export const useWidgetStore = create<WidgetState>((set) => ({
+  notes: [],
+  spaceId: '',
+  
+  addNote: (spaceId: string) => set((state) => ({
+    notes: [...state.notes, {
+      id: nanoid(),
+      content: '',
+      position: { x: 100, y: 100 },
+      spaceId
+    }]
+  })),
 
-type WidgetStore = {
-  notes: Note[];
-  addNote: (spaceId: string) => void;
-  deleteNote: (id: string) => void;
-  updateNotePosition: (id: string, position: { x: number; y: number }) => void;
-  updateNoteColor: (id: string, color: string) => void;
-}
+  updateNote: (id: string, updates: Partial<Note>) => set((state) => ({
+    notes: state.notes.map((note) => 
+      note.id === id ? { ...note, ...updates } : note
+    )
+  })),
 
-export const useWidgetStore = create<WidgetStore>()(
-  persist(
-    (set) => ({
-      notes: [],
-      addNote: (spaceId) => set((state) => ({
-        notes: [...state.notes, {
-          id: nanoid(),
-          content: '',
-          position: { x: Math.random() * 300, y: Math.random() * 300 },
-          color: 'white',
-          spaceId
-        }]
-      })),
-      deleteNote: (id) => set((state) => ({
-        notes: state.notes.filter(note => note.id !== id)
-      })),
-      updateNotePosition: (id, position) => set((state) => ({
-        notes: state.notes.map(note => 
-          note.id === id ? { ...note, position } : note
-        )
-      })),
-      updateNoteColor: (id, color) => set((state) => ({
-        notes: state.notes.map(note =>
-          note.id === id ? { ...note, color } : note
-        )
-      })),
-    }),
-    {
-      name: 'widget-storage'
-    }
-  )
-);
+  deleteNote: (id: string) => set((state) => ({
+    notes: state.notes.filter((note) => note.id !== id)
+  })),
+
+  updateNotePosition: (id: string, position: { x: number; y: number }) => set((state) => ({
+    notes: state.notes.map((note) =>
+      note.id === id ? { ...note, position } : note
+    )
+  })),
+
+  setSpaceId: (id: string) => set({ spaceId: id }),
+}));

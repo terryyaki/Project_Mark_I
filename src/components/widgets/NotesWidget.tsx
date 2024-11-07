@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useWidgetStore } from '@/store/widgetStore';
 import { useState } from 'react';
+import type { Note } from '@/types/store';
 
 interface NotesWidgetProps {
   id: string;
@@ -11,8 +12,8 @@ interface NotesWidgetProps {
 
 export default function NotesWidget({ id, onClose }: NotesWidgetProps) {
   const [isDragging, setIsDragging] = useState(false);
-  const { notes, updateNotePosition } = useWidgetStore();
-  const note = notes.find(n => n.id === id);
+  const { notes, updateNote, updateNotePosition } = useWidgetStore();
+  const note = notes.find((n: Note) => n.id === id);
 
   if (!note) return null;
 
@@ -51,6 +52,8 @@ export default function NotesWidget({ id, onClose }: NotesWidgetProps) {
           </button>
         </div>
         <textarea
+          value={note.content}
+          onChange={(e) => updateNote(id, { content: e.target.value })}
           className="w-full h-32 bg-transparent border-none text-white/80 resize-none focus:outline-none"
           placeholder="Type something..."
           style={{ cursor: 'text' }}
