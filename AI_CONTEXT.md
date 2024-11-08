@@ -545,3 +545,302 @@ Successfully implemented authentication system:
 - Type-safe sessions
 - Auth-aware layouts
 
+## Current Working Code Structure
+### Core Files
+```typescript:src/app/profile/page.tsx
+// Actual working code here
+```
+```typescript:src/components/dock/Dock.tsx
+// Actual working code here
+```
+
+### Package Dependencies
+- next-auth@latest: Auth system, Google OAuth
+- lucide-react@latest: Icons for Dock, SpacesSwitcher
+- zustand@latest: State management for widgets
+- framer-motion: Animations for dock and widgets
+
+### Known Working Solutions
+1. Auth Issues:
+   - JWT Session Error → Use "next-auth/next" import
+   - Google OAuth Loop → Check callback URLs in .env
+
+2. Component Issues:
+   - Lucide Icons → Check import from 'lucide-react'
+   - Widget Context → Use useWidget() not useWidgets()
+
+## Development Guidelines
+### Common Mistakes to Avoid
+1. File Creation
+   - Check existing pages before creating new ones
+   - Reference Project Structure section
+   - Verify against Component Dependencies diagram
+
+2. Package Management
+   - Check Package Dependencies section first
+   - Verify import paths before reinstalling
+   - Reference Known Working Solutions
+
+## Critical References
+- CURRENT_CODE_STATE.md: Contains working code, packages, and known good imports
+- Refer to this before suggesting new files or packages
+- Check against this when debugging import or package issues
+
+## AI Problem-Solution Protocol
+
+### 1. When Solving Problems
+AI should immediately:
+1. Document the solution in CURRENT_CODE_STATE.md
+2. Ask user to verify:
+```markdown
+Should we update documentation for this solution?
+- Add to Known Working Solutions ✓
+- Update Package Dependencies ✓
+- Check for redundant files ✓
+- Verify folder structure is current ✓
+```
+
+### 2. After Installing Packages
+AI should prompt:
+```markdown
+New package installed. Let's update:
+1. CURRENT_CODE_STATE.md:
+   - Add [package@version] to dependencies
+   - Document what it's used for
+2. Check for conflicts with existing packages
+3. Add any common import patterns
+4. Document any known issues/solutions
+```
+
+### 3. When Creating New Files
+AI should verify:
+```markdown
+Before creating [new_file], let's check:
+1. Does similar file exist? (Check Project Structure)
+2. Is this following our file organization?
+3. Should we update:
+   - Project Structure diagram
+   - Component Dependencies
+   - File Relationships
+```
+
+### 4. Regular Check-ins
+During long conversations, AI should periodically ask:
+```markdown
+Should we pause to update documentation?
+1. New solutions documented? ✓
+2. Package list current? ✓
+3. File structure accurate? ✓
+4. All problems/solutions logged? ✓
+```
+
+## Project Analysis Tools
+
+### 1. Structure Scanner
+```bash
+npm run scan-project
+# Updates AI_CONTEXT.md with current project structure
+```
+
+### 2. Dependency Analyzer
+```bash
+npm run analyze-deps
+# Updates component relationship diagrams
+```
+
+### 3. Context Updater
+```bash
+npm run update-context
+# Keeps AI_CONTEXT.md synchronized
+```
+
+### 4. Type Generator
+```bash
+npm run check-types
+# Validates and generates missing types
+```
+
+### Usage in AI Conversations
+The AI should:
+1. Run structure scan before solving problems
+2. Check dependencies when discussing imports
+3. Validate types when working with TypeScript
+4. Keep context updated during long conversations
+
+## AI Pre-Solution Protocol
+
+### 1. Problem Assessment
+```bash
+# Run diagnostic scripts first
+npm run scan-project    # Get current structure
+npm run analyze-deps    # Check dependencies
+npm run check-types     # Validate types
+
+# Check Cursor problems window
+- Note all error messages
+- Group by file/type
+- Check error patterns
+```
+
+### 2. Context Verification
+Before solving, verify:
+```markdown
+1. Current Project State
+   - [ ] Scanned file structure
+   - [ ] Checked Cursor problems
+   - [ ] Verified package.json
+   - [ ] Checked tsconfig.json
+
+2. Related Files
+   - [ ] Listed affected files
+   - [ ] Checked import/export chain
+   - [ ] Verified file locations
+   - [ ] Noted dependent components
+
+3. Documentation Status
+   - [ ] Checked CURRENT_CODE_STATE.md
+   - [ ] Reviewed recent changes
+   - [ ] Listed needed updates
+```
+
+### 3. Solution Planning
+Before implementing:
+```markdown
+1. Changes Required
+   - [ ] Files to modify
+   - [ ] New files needed
+   - [ ] Package changes
+   - [ ] Type updates
+
+2. Documentation Updates
+   - [ ] AI_CONTEXT.md
+   - [ ] CURRENT_CODE_STATE.md
+   - [ ] Project structure
+   - [ ] Known solutions
+
+3. Verification Steps
+   - [ ] Test cases needed
+   - [ ] Type checking
+   - [ ] Import verification
+   - [ ] Structure validation
+```
+
+### 4. Post-Solution Checklist
+After implementing:
+```markdown
+1. Update Documentation
+   - [ ] Record solution
+   - [ ] Update file structure
+   - [ ] Add known solutions
+   - [ ] Update dependencies
+
+2. Verify Changes
+   - [ ] Run all checks
+   - [ ] Test imports
+   - [ ] Validate types
+   - [ ] Check new files
+
+3. Future Prevention
+   - [ ] Document patterns
+   - [ ] Update scripts
+   - [ ] Add test cases
+```
+
+## File Creation Protocol
+
+### Auto-Generated File Headers
+Every file includes:
+```typescript
+/**
+ * @file ${filePath}
+ * @context This file is part of the Super App project
+ * @docs See AI_CONTEXT.md for full project context
+ * @created ${new Date().toISOString()}
+ * @module ${getModuleFromPath(filePath)}
+ * @dependencies [auto-generated list of imports]
+ * @related [auto-generated list of related files]
+ */`;
+```
+
+### File Registration System
+- All files are tracked in `.file-registry.json`
+- AI_CONTEXT.md auto-updates on file creation
+- Dependency graphs stay current
+- Documentation reminders generated
+
+### Documentation Links
+Every new file should reference:
+1. Its module's documentation
+2. Related component docs
+3. This context file
+4. Any relevant ADRs
+
+### Usage Example
+```typescript:src/components/new-component.tsx
+/**
+ * @file src/components/new-component.tsx
+ * @context See AI_CONTEXT.md
+ * @module Spaces
+ * @dependencies SpaceContext, WidgetSystem
+ * @related SpacesList.tsx, SpacesContent.tsx
+ */
+```
+
+## Project Automation System
+
+### Overview
+The project includes an automated system for:
+- Tracking file changes
+- Monitoring problems
+- Generating documentation
+- Maintaining project health
+
+### Key Components
+1. **Core Automation**
+```typescript
+// scripts/automation/core.ts
+- ProjectAutomation class
+- State management
+- File watching
+- Problem monitoring
+```
+
+2. **Problem Checking**
+```typescript
+// scripts/automation/problem-checker.ts
+- Integrates with Cursor
+- Tracks TypeScript errors
+- Monitors import issues
+```
+
+3. **Documentation Generation**
+```typescript
+// scripts/automation/docs/generator.ts
+- Auto-updates AI_CONTEXT.md
+- Tracks project state
+- Maintains documentation
+```
+
+### Usage
+```bash
+# Start automation with development
+npm run dev  # Includes automation
+
+# Run automation separately
+npm run automation
+```
+
+### File Structure
+```
+scripts/
+├── automation/
+│   ├── core.ts
+│   ├── problem-checker.ts
+│   ├── health-checker.ts
+│   ├── docs/
+│   │   └── generator.ts
+│   └── utils/
+│       └── logger.ts
+└── setup-automation.ts
+```
+
